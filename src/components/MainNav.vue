@@ -22,14 +22,29 @@
             </li>
           </ul>
         </nav>
+        <div class="flex items-center h-full ml-auto">
+          <profile-image v-if="isLoggedIn" data-test="profile-image" />
+          <action-button
+            v-else
+            text="Sign In"
+            type="primary"
+            data-test="login-button"
+            @click="loginUser"
+          />
+        </div>
       </div>
+      <subnav v-if="isLoggedIn" data-test="subnav" />
     </div>
   </header>
 </template>
 
 <script>
+import ActionButton from "./ActionButton.vue";
+import ProfileImage from "./ProfileImage.vue";
+import Subnav from "./Subnav.vue";
 export default {
   name: "MainNav",
+  components: { ActionButton, ProfileImage, Subnav },
   data() {
     return {
       company: "Nico Careers",
@@ -42,7 +57,13 @@ export default {
         "Students",
         "Jobs",
       ],
+      isLoggedIn: false,
     };
+  },
+  methods: {
+    loginUser() {
+      this.isLoggedIn = true;
+    },
   },
 };
 </script>
