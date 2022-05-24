@@ -4,9 +4,17 @@
       <div
         class="flex flex-nowrap h-full px-8 mx-auto border-b border-solid border-brand-gray-1"
       >
-        <a :href="url" class="flex items-center h-full text-xl">{{
-          company
-        }}</a>
+        <router-link
+          :to="{ name: 'Home' }"
+          class="flex items-center h-full text-xl font-bold"
+          >Nico Careers</router-link
+        >
+
+        <router-link
+          :to="{ name: 'JobResults' }"
+          class="flex items-center ml-4 h-full text-xl font-bold"
+          >To Job results (TEMP LINK)</router-link
+        >
 
         <nav class="h-full ml-12">
           <ul class="flex h-full p-0 m-0 list-none">
@@ -51,8 +59,6 @@ export default {
   components: { ActionButton, ProfileImage, Subnav },
   data() {
     return {
-      company: "Nico Careers",
-      url: "https://careers.google.com",
       menuItems: [
         "Teams",
         "Locations",

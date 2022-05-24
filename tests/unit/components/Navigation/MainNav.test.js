@@ -1,14 +1,22 @@
-import { shallowMount } from "@vue/test-utils";
+import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 import MainNav from "@/components/Navigation/MainNav.vue";
 
 describe("MainNav", () => {
+  const createConfig = () => ({
+    global: {
+      stubs: {
+        "router-link": RouterLinkStub,
+      },
+    },
+  });
+
   it("Display company name", () => {
-    const wrapper = shallowMount(MainNav);
+    const wrapper = shallowMount(MainNav, createConfig());
     expect(wrapper.text()).toMatch("Nico Careers");
   });
 
   it("Displays menu items for navigation", () => {
-    const wrapper = shallowMount(MainNav);
+    const wrapper = shallowMount(MainNav, createConfig());
     const navigationMenuItems = wrapper.findAll(
       "[data-test='main-nav-list-item']"
     );
@@ -22,9 +30,10 @@ describe("MainNav", () => {
       "Jobs",
     ]);
   });
+
   describe("when user is logged out", () => {
     it("prompts user to sign in", () => {
-      const wrapper = shallowMount(MainNav);
+      const wrapper = shallowMount(MainNav, createConfig());
       const loginButton = wrapper.find("[data-test='login-button']");
       expect(loginButton.exists()).toBe(true);
     });
@@ -32,7 +41,7 @@ describe("MainNav", () => {
 
   describe("when user is logged in", () => {
     it("displays user profile picture", async () => {
-      const wrapper = shallowMount(MainNav);
+      const wrapper = shallowMount(MainNav, createConfig());
       let profileImage = wrapper.find("[data-test='profile-image']");
       expect(profileImage.exists()).toBe(false);
       const loginButton = wrapper.find("[data-test='login-button']");
@@ -40,8 +49,9 @@ describe("MainNav", () => {
       profileImage = wrapper.find("[data-test='profile-image']");
       expect(profileImage.exists()).toBe(true);
     });
+
     it("Displays sub-navigation menu with additional information", async () => {
-      const wrapper = shallowMount(MainNav);
+      const wrapper = shallowMount(MainNav, createConfig());
       let subnav = wrapper.find("[data-test='subnav']");
       expect(subnav.exists()).toBe(false);
       const loginButton = wrapper.find("[data-test='login-button']");
