@@ -8,12 +8,7 @@
     <div class="flex flex-nowrap flex-1 h-full text-base font-light">
       <div class="relative flex items-center flex-1 h-full pr-3">
         <label class="absolute left-0 -top-10">Role</label>
-        <input
-          v-model="role"
-          type="text"
-          placeholder="Vue Frontend Developer"
-          class="w-full text-lg font-normal focus:outline-none"
-        />
+        <text-input v-model="role" placeholder="Vue Frontend Developer" />
       </div>
 
       <span
@@ -23,14 +18,7 @@
 
       <div class="relative flex items center flex-1 h-full pl-3">
         <label class="absolute left-0 -top-10">Location</label>
-        <input
-          v-model="location"
-          type="text"
-          placeholder="Berlin"
-          class="w-full text-lg font-normal focus:outline-none"
-        />
-        <!--           @input="location = $event.target.value"
- you can use @input @click etc with the syntax above, MUST use $ (dolar sign) to access the DOM proprieties, then event.target.value to update the data below -->
+        <text-input v-model="location" placeholder="Berlin" />
       </div>
     </div>
 
@@ -40,25 +28,24 @@
 
 <script>
 import ActionButton from "../Shared/ActionButton.vue";
+import TextInput from "../Shared/TextInput.vue";
 export default {
   name: "JobSearchForm",
-  components: { ActionButton },
+  components: { ActionButton, TextInput },
   data() {
     return {
       role: "",
       location: "",
     };
   },
-  // Instead of useing method or inline @input biding you can use v-model="" with the data you want to update
-  //You can make a method to update the state of the fields "role and location" or above you can pass the method directly inside @input
+  // You can use methods to updateState inside emitted events and call the function inside the v-on event listener
   // methods: {
-  //   updateRole($event) {
-  //     this.role = $event.target.value;
+  //   updateRole(payload) {
+  //     this.role = payload;
   //   },
-  //   // UpdateLocation is being used an inline V-bind to update data and location variable
-  //   // updateLocation(e) {
-  //   //   this.location = e.target.value;
-  //   // },
+  //   updateLocation(payload) {
+  //     this.location = payload;
+  //   },
   // },
 };
 </script>
