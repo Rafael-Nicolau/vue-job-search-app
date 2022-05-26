@@ -1,14 +1,11 @@
-const axios = require("axios");
+const sushi = [
+  "Tuna",
+  "Salmon",
+  "Yeallowtail",
+  "Eel",
+  "Shrimp",
+  "Octopus",
+  "Uni",
+];
 
-const url = "http://localhost:3000/jobs";
-
-const fetchJobsVTradiionalPromise = () => {
-  axios.get(url).then((response) => {
-    console.log(response.data);
-  });
-};
-
-const fetchJobsVAsyncAwait = async () => {
-  const response = await axios.get(url);
-  console.log(response.data);
-};
+console.log(sushi.slice(2, 7));
