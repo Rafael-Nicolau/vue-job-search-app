@@ -30,14 +30,14 @@
           <profile-image
             v-if="isLoggedIn"
             data-test="profile-image"
-            @click="logoutUser"
+            @click="LOGOUT_USER()"
           />
           <action-button
             v-else
             text="Sign In"
             type="primary"
             data-test="login-button"
-            @click="loginUser"
+            @click="LOGIN_USER()"
           />
         </div>
       </div>
@@ -47,9 +47,14 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
+
 import ActionButton from "../Shared/ActionButton.vue";
 import ProfileImage from "./ProfileImage.vue";
 import Subnav from "./Subnav.vue";
+
+import { LOGIN_USER, LOGOUT_USER } from "@/store";
+
 export default {
   name: "MainNav",
   components: { ActionButton, ProfileImage, Subnav },
@@ -63,7 +68,6 @@ export default {
         { text: "Students", url: "/" },
         { text: "Jobs", url: "/jobs/results" },
       ],
-      isLoggedIn: false,
     };
   },
   computed: {
@@ -73,14 +77,27 @@ export default {
         "h-32": this.isLoggedIn,
       };
     },
+    ...mapState(["isLoggedIn"]),
+    //Below other ways to do the same thing:
+    // ...mapState({
+    //   isLoggedIn: "isLoggedIn",
+    // }),
+    // ...mapState({
+    //   isLoggedIn: (state) => state.isLoggedIn,
+    // }),
+    // isLoggedIn() {
+    //   return this.$store.state.isLoggedIn;
+    // },
   },
   methods: {
-    loginUser() {
-      this.isLoggedIn = true;
-    },
-    logoutUser() {
-      this.isLoggedIn = false;
-    },
+    ...mapMutations([LOGIN_USER, LOGOUT_USER]),
+    //Below other ways to do the same thing:
+    // LOGIN_USER() {
+    //   this.$store.commit(LOGIN_USER);
+    // },
+    // LOGOUT_USER() {
+    //   this.$store.commit(LOGOUT_USER);
+    // },
   },
 };
 </script>
