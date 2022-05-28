@@ -33,7 +33,10 @@
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
+import { mapState, mapActions } from "vuex";
+
+import { FETCH_JOBS } from "@/store";
 import JobListing from "./JobListing.vue";
 
 export default {
@@ -42,7 +45,8 @@ export default {
 
   data() {
     return {
-      jobs: [],
+      //jobs: [],
+      firstPage: 1,
     };
   },
 
@@ -54,8 +58,7 @@ export default {
 
     previousPage() {
       const previousPage = this.currentPage - 1;
-      const firstPage = 1;
-      return previousPage >= firstPage ? previousPage : undefined;
+      return previousPage >= this.firstPage ? previousPage : undefined;
     },
 
     nextPage() {
@@ -70,12 +73,18 @@ export default {
       const lastJobIndex = pageNumber * 10;
       return this.jobs.slice(firstJobIndex, lastJobIndex);
     },
+    ...mapState(["jobs"]),
   },
 
   async mounted() {
-    const baseUrl = process.env.VUE_APP_API_URL;
-    const response = await axios.get(`${baseUrl}/jobs`);
-    this.jobs = response.data;
+    this.FETCH_JOBS();
+    //this.$store.dispatch(FETCH_JOBS);
+    // const baseUrl = process.env.VUE_APP_API_URL;
+    // const response = await axios.get(`${baseUrl}/jobs`);
+    // this.jobs = response.data;
+  },
+  methods: {
+    ...mapActions([FETCH_JOBS]),
   },
 };
 </script>
