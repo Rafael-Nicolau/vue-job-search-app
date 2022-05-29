@@ -6,7 +6,7 @@
     <template #subtitle>
       <h2 class="w-full my-4 text-base font-light">
         This is a subtitle for named slot in HeaderContainer for the "teams"
-        view page, and I don't know what to write here.
+        view page, and I don't know what else to write here.
       </h2>
     </template>
   </header-container>

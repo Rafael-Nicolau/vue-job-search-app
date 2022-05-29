@@ -41,25 +41,49 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import ActionButton from "../Shared/ActionButton.vue";
 import TextInput from "../Shared/TextInput.vue";
 export default {
   name: "JobSearchForm",
   components: { ActionButton, TextInput },
-  data() {
+
+  setup() {
+    const router = useRouter();
+
+    const role = ref("");
+    const location = ref("");
+
+    const searchForJobs = () => {
+      router.push({
+        name: "JobResults",
+        query: { role: role.value, location: location.value },
+      });
+    };
+
     return {
-      role: "",
-      location: "",
+      role,
+      location,
+      searchForJobs,
     };
   },
-  methods: {
-    searchForJobs() {
-      this.$router.push({
-        name: "JobResults",
-        query: { role: this.role, location: this.location },
-      });
-    },
-  },
+
+  /** VUE 2 optional API */
+  // data() {
+  //   return {
+  //     role: "",
+  //     location: "",
+  //   };
+  // },
+  // methods: {
+  //   searchForJobs() {
+  //     this.$router.push({
+  //       name: "JobResults",
+  //       query: { role: this.role, location: this.location },
+  //     });
+  //   },
+  // },
   // You can use methods to updateState inside emitted events and call the function inside the v-on event listener
   // methods: {
   //   updateRole(payload) {
