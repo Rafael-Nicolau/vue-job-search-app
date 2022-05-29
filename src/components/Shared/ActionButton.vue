@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { computed, toRefs } from "vue";
 export default {
   name: "ActionButton",
   props: {
@@ -21,14 +22,30 @@ export default {
       },
     },
   },
-  computed: {
-    buttonClass() {
+
+  setup(props) {
+    const { type } = toRefs(props);
+
+    const buttonClass = computed(() => {
       return {
-        //This object will "transform" into the class needed, according to what was passed on the props
-        [this.type]: true,
+        [type.value]: true,
+        //[props.type]: true -----> same thing, without toRefs
       };
-    },
+    });
+
+    return {
+      buttonClass,
+    };
   },
+
+  // computed: {
+  //   buttonClass() {
+  //     return {
+  //       //This object will "transform" into the class needed, according to what was passed on the props
+  //       [this.type]: true,
+  //     };
+  //   },
+  // },
 };
 </script>
 

@@ -18,6 +18,8 @@
 </template>
 
 <script>
+//using setup from composite API of vue3
+import { computed, ref } from "vue";
 export default {
   name: "Accordion",
 
@@ -29,22 +31,40 @@ export default {
     },
   },
 
-  data() {
+  setup() {
+    const isOpen = ref(false);
+
+    const caretIcon = computed(() =>
+      isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"]
+    );
+
+    const open = () => {
+      isOpen.value = !isOpen.value;
+    };
+
     return {
-      isOpen: false,
+      isOpen,
+      caretIcon,
+      open,
     };
   },
 
-  computed: {
-    caretIcon() {
-      return this.isOpen ? ["fas", "angle-up"] : ["fas", "angle-down"];
-    },
-  },
+  // data() {
+  //   return {
+  //     isOpen: false,
+  //   };
+  // },
 
-  methods: {
-    open() {
-      this.isOpen = !this.isOpen;
-    },
-  },
+  // computed: {
+  //   caretIcon() {
+  //     return this.isOpen ? ["fas", "angle-up"] : ["fas", "angle-down"];
+  //   },
+  // },
+
+  // methods: {
+  //   open() {
+  //     this.isOpen = !this.isOpen;
+  //   },
+  // },
 };
 </script>
