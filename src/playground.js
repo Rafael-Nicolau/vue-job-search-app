@@ -1,11 +1,7 @@
-const sushi = [
-  "Tuna",
-  "Salmon",
-  "Yeallowtail",
-  "Eel",
-  "Shrimp",
-  "Octopus",
-  "Uni",
-];
+const numbers = [1, 2, 3, 5, 7, 2, 9, 11, 6];
 
-console.log(sushi.slice(2, 7));
+console.log(
+  numbers.filter((number) => {
+    return number < 6;
+  })
+);
