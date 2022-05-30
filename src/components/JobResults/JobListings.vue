@@ -9,7 +9,7 @@
       />
     </ol>
     <div class="mt-8 mx-auto">
-      <div class="flex flex-row flex-nowrap">
+      <div class="flex flex-row flex-nowrap"></div>
         <p class="text-sm flex-grow">Page {{ currentPage }}</p>
         <div class="flex item-center justify-center">
           <router-link
@@ -33,59 +33,89 @@
 </template>
 
 <script>
-//import axios from "axios";
-import { mapActions, mapGetters } from "vuex";
-
-import { FETCH_JOBS, FILTERED_JOBS } from "@/store/constants";
 import JobListing from "./JobListing.vue";
+import { computed, onMounted } from "@vue/runtime-core";
+import { useFetchJobDispatch, useFilteredJobs } from "@/store/composables";
+import useCurrentPage from "@/composables/useCurrentPage";
+import usePreviousAndNextPages from "@/composables/usePreviousAndNextPages";
 
 export default {
   name: "JobListings",
   components: { JobListing },
 
-  data() {
+  setup() {
+    onMounted(useFetchJobDispatch);
+
+    const filteredJobs = useFilteredJobs();
+
+    const currentPage = useCurrentPage();
+
+    const maxPage = computed(() => Math.ceil(filteredJobs.value.length / 10));
+
+    const { previousPage, nextPage } = usePreviousAndNextPages(
+      currentPage,
+      maxPage
+    );
+
+    const displayedJobs = computed(() => {
+      const pageNumber = currentPage.value;
+      const firstJobIndex = (pageNumber - 1) * 10;
+      const lastJobIndex = pageNumber * 10;
+      return filteredJobs.value.slice(firstJobIndex, lastJobIndex);
+    });
+
     return {
-      //jobs: [],
-      firstPage: 1,
+      currentPage,
+      previousPage,
+      nextPage,
+      displayedJobs,
     };
   },
 
-  computed: {
-    ...mapGetters([FILTERED_JOBS]),
-    currentPage() {
-      const pageString = this.$route.query.page || "1";
-      return Number.parseInt(pageString);
-    },
+  //------------->>>>>> Code below is just to remember optional API
+  // data() {
+  //   return {
+  //     //jobs: [],
+  //     firstPage: 1,
+  //   };
+  // },
 
-    previousPage() {
-      const previousPage = this.currentPage - 1;
-      return previousPage >= this.firstPage ? previousPage : undefined;
-    },
+  // computed: {
+  //   ...mapGetters([FILTERED_JOBS]),
+  //   currentPage() {
+  //     const pageString = this.$route.query.page || "1";
+  //     return Number.parseInt(pageString);
+  //   },
 
-    nextPage() {
-      const nextPage = this.currentPage + 1;
-      const maxPage = Math.ceil(this.FILTERED_JOBS.length / 10);
-      return nextPage <= maxPage ? nextPage : undefined;
-    },
+  //   previousPage() {
+  //     const previousPage = this.currentPage - 1;
+  //     return previousPage >= this.firstPage ? previousPage : undefined;
+  //   },
 
-    displayedJobs() {
-      const pageNumber = this.currentPage;
-      const firstJobIndex = (pageNumber - 1) * 10;
-      const lastJobIndex = pageNumber * 10;
-      return this.FILTERED_JOBS.slice(firstJobIndex, lastJobIndex);
-    },
-    //...mapState(["jobs"]), ----> need to import mapState to use
-  },
+  //   nextPage() {
+  //     const nextPage = this.currentPage + 1;
+  //     const maxPage = Math.ceil(this.FILTERED_JOBS.length / 10);
+  //     return nextPage <= maxPage ? nextPage : undefined;
+  //   },
 
-  async mounted() {
-    this.FETCH_JOBS();
-    //this.$store.dispatch(FETCH_JOBS);
-    // const baseUrl = process.env.VUE_APP_API_URL;
-    // const response = await axios.get(`${baseUrl}/jobs`);
-    // this.jobs = response.data;
-  },
-  methods: {
-    ...mapActions([FETCH_JOBS]),
-  },
+  //   displayedJobs() {
+  //     const pageNumber = this.currentPage;
+  //     const firstJobIndex = (pageNumber - 1) * 10;
+  //     const lastJobIndex = pageNumber * 10;
+  //     return this.FILTERED_JOBS.slice(firstJobIndex, lastJobIndex);
+  //   },
+  //   //...mapState(["jobs"]), ----> need to import mapState to use
+  // },
+
+  // async mounted() {
+  //   this.FETCH_JOBS();
+  //   //this.$store.dispatch(FETCH_JOBS);
+  //   // const baseUrl = process.env.VUE_APP_API_URL;
+  //   // const response = await axios.get(`${baseUrl}/jobs`);
+  //   // this.jobs = response.data;
+  // },
+  // methods: {
+  //   ...mapActions([FETCH_JOBS]),
+  // },
 };
 </script>
