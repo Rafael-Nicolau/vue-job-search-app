@@ -9,7 +9,7 @@
       />
     </ol>
     <div class="mt-8 mx-auto">
-      <div class="flex flex-row flex-nowrap"></div>
+      <div class="flex flex-row flex-nowrap">
         <p class="text-sm flex-grow">Page {{ currentPage }}</p>
         <div class="flex item-center justify-center">
           <router-link
