@@ -6,13 +6,15 @@
   />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "ProfileImage",
   data() {
     return {
       imageLink: "/img/link.png",
     };
   },
-};
+});
 </script>

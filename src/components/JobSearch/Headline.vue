@@ -12,18 +12,29 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import nextElementInList from "@/utils/nextElementInList";
-export default {
+import { defineComponent } from "@vue/runtime-core";
+
+interface Data {
+  action: string;
+  interval: number | undefined;
+}
+
+interface ActionClasses {
+  [x: string]: boolean;
+}
+
+export default defineComponent({
   name: "Headline",
-  data() {
+  data(): Data {
     return {
       action: "Build",
-      interval: null,
+      interval: undefined,
     };
   },
   computed: {
-    actionClasses() {
+    actionClasses(): ActionClasses {
       return {
         [this.action.toLowerCase()]: true,
       };
@@ -43,7 +54,7 @@ export default {
       }, 5000);
     },
   },
-};
+});
 </script>
 
 <style scoped>

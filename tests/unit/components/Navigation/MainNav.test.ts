@@ -1,10 +1,15 @@
-import { shallowMount, RouterLinkStub } from "@vue/test-utils";
+import { shallowMount, mount, RouterLinkStub } from "@vue/test-utils";
 import { createStore } from "vuex";
 
 import MainNav from "@/components/Navigation/MainNav.vue";
+import { GlobalState } from "@/store/types";
+
+interface MockStore {
+  state: Partial<GlobalState>;
+}
 
 describe("MainNav", () => {
-  const createConfig = ($store) => ({
+  const createConfig = ($store: MockStore) => ({
     global: {
       mocks: {
         $store,
@@ -89,10 +94,14 @@ describe("MainNav", () => {
 
   describe("when user login and logout", () => {
     it("issues call to Vuex to login user", async () => {
-      const store = createStore();
       const commit = jest.fn();
-      store.commit = commit;
-      const wrapper = shallowMount(MainNav, createConfig(store));
+      const $store = {
+        state: {
+          isLoggedIn: true,
+        },
+        commit,
+      };
+      const wrapper = mount(MainNav, createConfig($store));
       const loginButton = wrapper.find("[data-test='login-button']");
 
       await loginButton.trigger("click");
