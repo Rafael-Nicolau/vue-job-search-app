@@ -17,10 +17,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 //using setup from composite API of vue3
-import { computed, ref } from "vue";
-export default {
+import { computed, defineComponent, ref } from "vue";
+export default defineComponent({
   name: "Accordion",
 
   props: {
@@ -66,5 +66,5 @@ export default {
   //     this.isOpen = !this.isOpen;
   //   },
   // },
-};
+});
 </script>

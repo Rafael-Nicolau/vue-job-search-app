@@ -97,7 +97,7 @@ describe("MainNav", () => {
       const commit = jest.fn();
       const $store = {
         state: {
-          isLoggedIn: true,
+          isLoggedIn: false,
         },
         commit,
       };
