@@ -32,14 +32,15 @@
   </main>
 </template>
 
-<script>
-import JobListing from "./JobListing.vue";
-import { computed, onMounted } from "@vue/runtime-core";
-import { useFetchJobDispatch, useFilteredJobs } from "@/store/composables";
+<script lang="ts">
+import { computed, defineComponent, onMounted } from "@vue/runtime-core";
+
 import useCurrentPage from "@/composables/useCurrentPage";
 import usePreviousAndNextPages from "@/composables/usePreviousAndNextPages";
+import { useFetchJobDispatch, useFilteredJobs } from "@/store/composables";
+import JobListing from "./JobListing.vue";
 
-export default {
+export default defineComponent({
   name: "JobListings",
   components: { JobListing },
 
@@ -117,5 +118,5 @@ export default {
   // methods: {
   //   ...mapActions([FETCH_JOBS]),
   // },
-};
+});
 </script>

@@ -16,9 +16,7 @@ interface IncludeJobGetters {
 const getters = {
   [UNIQUE_ORGANIZATIONS](state: GlobalState) {
     const uniqueOrganizations = new Set<string>();
-    state.jobs.forEach((job) => {
-      uniqueOrganizations.add(job.organization);
-    });
+    state.jobs.forEach((job) => uniqueOrganizations.add(job.organization));
     return uniqueOrganizations;
   },
   [UNIQUE_JOB_TYPES](state: GlobalState) {
