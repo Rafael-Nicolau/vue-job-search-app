@@ -1,5 +1,3 @@
-import { Job } from "@/api/types";
-import { GlobalState } from "./types";
 import {
   FILTERED_JOBS,
   UNIQUE_JOB_TYPES,
@@ -7,6 +5,8 @@ import {
   INCLUDE_JOB_BY_ORGANIZATION,
   INCLUDE_JOB_BY_JOB_TYPE,
 } from "@/store/constants";
+import { GlobalState } from "@/store/types";
+import { Job } from "@/api/types";
 
 interface IncludeJobGetters {
   INCLUDE_JOB_BY_ORGANIZATION: (job: Job) => boolean;

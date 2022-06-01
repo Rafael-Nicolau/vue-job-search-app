@@ -1,6 +1,6 @@
 import { computed } from "vue";
 
-interface SimpleRef {
+export interface SimpleRef {
   value: number;
 }
 

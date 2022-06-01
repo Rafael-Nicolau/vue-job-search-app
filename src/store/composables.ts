@@ -8,7 +8,7 @@ import {
 } from "./constants";
 
 import { Job } from "@/api/types";
-import { key } from ".";
+import { key } from "@/store";
 
 /* GETTERS */
 export const useFilteredJobs = () => {
