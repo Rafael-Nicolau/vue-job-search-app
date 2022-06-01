@@ -5,7 +5,7 @@ jest.mock("vuex");
 import { useRouter } from "vue-router";
 jest.mock("vue-router");
 
-import JobFiltersSidebarCheckboxGroup from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarCheckboxGroup";
+import JobFiltersSidebarCheckboxGroup from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarCheckboxGroup.vue";
 
 describe("JobFiltersSidebarCheckboxGroup", () => {
   const createConfig = (props = {}) => ({
