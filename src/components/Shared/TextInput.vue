@@ -11,8 +11,10 @@
  to access the DOM proprieties, then event.target.value to update the data below -->
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "@vue/runtime-core";
+
+export default defineComponent({
   name: "TextInput",
   props: {
     placeholder: {
@@ -34,12 +36,13 @@ export default {
   // },
   emits: ["update:modelValue"],
   methods: {
-    handleInput($event) {
+    handleInput($event: Event) {
       // this.value = $event.target.value; -> You need this line if using "data()"
-      this.$emit("update:modelValue", $event.target.value);
+      const target = $event.target as HTMLInputElement;
+      this.$emit("update:modelValue", target.value);
     },
   },
-};
+});
 // Instead of using method or inline @input biding you can use v-model="" with the data you want to update
 //You can make a method to update the state of the fields "role and location" or above you can pass the method directly inside @input
 // methods: {
