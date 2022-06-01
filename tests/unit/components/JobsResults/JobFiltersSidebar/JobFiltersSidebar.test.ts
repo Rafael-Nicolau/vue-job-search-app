@@ -22,5 +22,16 @@ describe("JobFiltersSidebar", () => {
     expect(mutation).toBe("ADD_SELECTED_JOB_TYPES");
   });
 
-  it("allows user to filter jobs by organizations", () => {});
+  it("allows user to filter jobs by organizations", () => {
+    useUniqueJobTypesMock.mockReturnValue(new Set(["Full-time", "Part-time"]));
+    useUniqueOrganizationsMock.mockReturnValue(new Set(["Google"]));
+    const wrapper = shallowMount(JobFiltersSidebar);
+    const jobTypesFilter: any = wrapper.findComponent(
+      "[data-test='job-organizations-filter']"
+    );
+    const { header, uniqueValues, mutation } = jobTypesFilter.props();
+    expect(header).toBe("Organizations");
+    expect(uniqueValues).toEqual(new Set(["Google"]));
+    expect(mutation).toBe("ADD_SELECTED_ORGANIZATIONS");
+  });
 });

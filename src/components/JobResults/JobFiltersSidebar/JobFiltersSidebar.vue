@@ -21,6 +21,7 @@
         header="Organizations"
         :unique-values="uniqueOrganizations"
         :mutation="ADD_SELECTED_ORGANIZATIONS"
+        data-test="job-organizations-filter"
       />
     </section>
   </div>
