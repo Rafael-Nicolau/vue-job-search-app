@@ -7,7 +7,7 @@
     @input="handleInput"
   />
   <!--           @input="location = $event.target.value"
- you can use @input @click etc with the syntax above, MUST use $ (dolar sign) 
+ you can use @input @click etc with the syntax above, MUST use $ (dollar sign) 
  to access the DOM proprieties, then event.target.value to update the data below -->
 </template>
 
