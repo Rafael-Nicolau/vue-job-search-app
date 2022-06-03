@@ -1,5 +1,5 @@
 import getters from "@/store/getters";
-import { createJob, createState } from "./utils";
+import { createDegree, createJob, createState } from "./utils";
 
 describe("getters", () => {
   describe("UNIQUE_ORGANIZATIONS", () => {
@@ -26,6 +26,18 @@ describe("getters", () => {
       const state = createState({ jobs });
       const result = getters.UNIQUE_JOB_TYPES(state);
       expect(result).toEqual(new Set(["Full-time", "Temporary"]));
+    });
+  });
+
+  describe("UNIQUE_DEGREES", () => {
+    it("extracts unique degree values", () => {
+      const degrees = [
+        createDegree({ degree: "Master's" }),
+        createDegree({ degree: "Bachelor's" }),
+      ];
+      const state = createState({ degrees });
+      const result = getters.UNIQUE_DEGREES(state);
+      expect(result).toEqual(["Master's", "Bachelor's"]);
     });
   });
 
@@ -70,6 +82,28 @@ describe("getters", () => {
       const job = createJob({ jobType: "Part-time" });
       const includeJob = getters.INCLUDE_JOB_BY_JOB_TYPE(state)(job);
       expect(includeJob).toBe(true);
+    });
+  });
+
+  describe("INCLUDE_JOB_BY_JOB_DEGREE", () => {
+    describe("when the user has not selected any degrees", () => {
+      it("includes job", () => {
+        const state = createState({
+          selectedDegrees: [],
+        });
+        const job = createJob({ degree: "Associate" });
+        const includeJob = getters.INCLUDE_JOB_BY_DEGREE(state)(job);
+        expect(includeJob).toBe(true);
+      });
+
+      it("identifies if job is associated with given degrees", () => {
+        const state = createState({
+          selectedDegrees: ["Ph.D", "Associate"],
+        });
+        const job = createJob({ degree: "Associate" });
+        const includeJob = getters.INCLUDE_JOB_BY_DEGREE(state)(job);
+        expect(includeJob).toBe(true);
+      });
     });
   });
 
