@@ -7,6 +7,7 @@ import {
   RECEIVE_JOBS,
   RECEIVE_DEGREES,
   ADD_SELECTED_JOB_TYPES,
+  ADD_SELECTED_DEGREES,
 } from "@/store/constants";
 
 const mutations = {
@@ -27,6 +28,9 @@ const mutations = {
   },
   [ADD_SELECTED_JOB_TYPES](state: GlobalState, jobTypes: string[]) {
     state.selectedJobTypes = jobTypes;
+  },
+  [ADD_SELECTED_DEGREES](state: GlobalState, degrees: string[]) {
+    state.selectedDegrees = degrees;
   },
 };
 
