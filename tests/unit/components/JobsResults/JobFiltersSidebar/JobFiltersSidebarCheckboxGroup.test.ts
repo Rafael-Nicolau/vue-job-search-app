@@ -18,7 +18,7 @@ describe("JobFiltersSidebarCheckboxGroup", () => {
     },
     props: {
       header: "header",
-      uniqueValues: new Set([1, 2]),
+      uniqueValues: new Set(["Value A", "Value B"]),
       mutation: "mutation",
       ...props,
     },
@@ -30,7 +30,7 @@ describe("JobFiltersSidebarCheckboxGroup", () => {
     await clickableArea.trigger("click");
     const inputLabels = wrapper.findAll("[data-test='value']");
     const inputValues = inputLabels.map((node) => node.text());
-    expect(inputValues).toEqual(["1", "2"]);
+    expect(inputValues).toEqual(["Value A", "Value B"]);
   });
 
   describe("when user clicks checkbox", () => {

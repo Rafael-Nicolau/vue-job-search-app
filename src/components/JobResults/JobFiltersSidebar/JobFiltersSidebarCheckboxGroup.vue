@@ -29,7 +29,7 @@ import { useRouter } from "vue-router";
 import { key } from "@/store";
 
 import Accordion from "@/components/Shared/Accordion.vue";
-import { defineComponent } from "@vue/runtime-core";
+import { defineComponent, PropType } from "@vue/runtime-core";
 
 export default defineComponent({
   name: "JobFiltersSidebarCheckboxGroup",
@@ -43,7 +43,7 @@ export default defineComponent({
       required: true,
     },
     uniqueValues: {
-      type: Set,
+      type: [Array, Set] as PropType<string[] | Set<string>>,
       required: true,
     },
     mutation: {
