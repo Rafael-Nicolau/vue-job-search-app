@@ -19,7 +19,7 @@ describe("getDegrees", () => {
 
   it("fetches all possible degree requirements", async () => {
     await getDegrees();
-    expect(axios.get).toHaveBeenCalledWith("http://supertestapi.com/degree");
+    expect(axios.get).toHaveBeenCalledWith("http://supertestapi.com/degrees");
   });
 
   it("extracts degrees from response", async () => {
