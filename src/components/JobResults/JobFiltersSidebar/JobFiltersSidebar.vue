@@ -6,7 +6,11 @@
       <div class="flex flex-row justify-between">
         <h3 class="my-4 text-base font-semibold">What do you want to do?</h3>
         <div class="flex items-center text-sm">
-          <action-button text="Clear Filters" type="secondary" />
+          <action-button
+            text="Clear Filters"
+            type="secondary"
+            @click="clearUserJobFilterSelections"
+          />
         </div>
       </div>
 
@@ -47,9 +51,12 @@ import {
   ADD_SELECTED_JOB_TYPES,
   ADD_SELECTED_ORGANIZATIONS,
   ADD_SELECTED_DEGREES,
+  CLEAR_USER_JOB_FILTER_SELECTIONS,
 } from "@/store/constants";
 
 import { defineComponent } from "@vue/runtime-core";
+import { useStore } from "vuex";
+import { key } from "@/store";
 
 export default defineComponent({
   name: "JobFiltersSidebar",
@@ -59,13 +66,18 @@ export default defineComponent({
   },
 
   setup() {
+    const store = useStore(key);
     const uniqueJobTypes = useUniqueJobTypes();
     const uniqueOrganizations = useUniqueOrganizations();
     const uniqueDegrees = useUniqueDegrees();
+    const clearUserJobFilterSelections = () => {
+      store.commit(CLEAR_USER_JOB_FILTER_SELECTIONS);
+    };
     return {
       uniqueJobTypes,
       uniqueOrganizations,
       uniqueDegrees,
+      clearUserJobFilterSelections,
       ADD_SELECTED_JOB_TYPES,
       ADD_SELECTED_ORGANIZATIONS,
       ADD_SELECTED_DEGREES,
