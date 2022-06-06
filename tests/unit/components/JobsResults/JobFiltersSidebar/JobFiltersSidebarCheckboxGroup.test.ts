@@ -1,4 +1,4 @@
-import { mount } from "@vue/test-utils";
+import { mount, shallowMount } from "@vue/test-utils";
 import { useStore } from "vuex";
 jest.mock("vuex");
 const useStoreMock = useStore as jest.Mock;
@@ -11,13 +11,7 @@ import JobFiltersSidebarCheckboxGroup from "@/components/JobResults/JobFiltersSi
 
 describe("JobFiltersSidebarCheckboxGroup", () => {
   const createConfig = (props = {}) => ({
-    global: {
-      stubs: {
-        FontAwesomeIcon: true,
-      },
-    },
     props: {
-      header: "header",
       uniqueValues: new Set(["Value A", "Value B"]),
       mutation: "mutation",
       ...props,
@@ -26,9 +20,10 @@ describe("JobFiltersSidebarCheckboxGroup", () => {
 
   it("renders unique list of jobs types for filtering jobs", async () => {
     useStoreMock.mockReturnValue({ commit: jest.fn(), subscribe: jest.fn() });
-    const wrapper = mount(JobFiltersSidebarCheckboxGroup, createConfig());
-    const clickableArea = wrapper.find("[data-test='clickable-area']");
-    await clickableArea.trigger("click");
+    const wrapper = shallowMount(
+      JobFiltersSidebarCheckboxGroup,
+      createConfig()
+    );
     const inputLabels = wrapper.findAll("[data-test='value']");
     const inputValues = inputLabels.map((node) => node.text());
     expect(inputValues).toEqual(["Value A", "Value B"]);
@@ -43,12 +38,10 @@ describe("JobFiltersSidebarCheckboxGroup", () => {
         mutation: "SOME_MUTATION",
         uniqueValues: new Set(["Full-time"]),
       };
-      const wrapper = mount(
+      const wrapper = shallowMount(
         JobFiltersSidebarCheckboxGroup,
         createConfig(props)
       );
-      const clickableArea = wrapper.find("[data-test='clickable-area']");
-      await clickableArea.trigger("click");
       const fullTimeInput = wrapper.find("[data-test='Full-time']");
       await fullTimeInput.setValue(true);
 
@@ -62,12 +55,10 @@ describe("JobFiltersSidebarCheckboxGroup", () => {
       const props = {
         uniqueValues: new Set(["Full-time"]),
       };
-      const wrapper = mount(
+      const wrapper = shallowMount(
         JobFiltersSidebarCheckboxGroup,
         createConfig(props)
       );
-      const clickableArea = wrapper.find("[data-test='clickable-area']");
-      await clickableArea.trigger("click");
       const fullTimeInput = wrapper.find("[data-test='Full-time']");
       await fullTimeInput.setValue(true);
 

@@ -14,26 +14,29 @@
         </div>
       </div>
 
-      <job-filters-sidebar-checkbox-group
-        header="Degrees"
-        :unique-values="uniqueDegrees"
-        :mutation="ADD_SELECTED_DEGREES"
-        data-test="degrees-filter"
-      />
+      <accordion header="Degrees">
+        <job-filters-sidebar-checkbox-group
+          :unique-values="uniqueDegrees"
+          :mutation="ADD_SELECTED_DEGREES"
+          data-test="degrees-filter"
+        />
+      </accordion>
 
-      <job-filters-sidebar-checkbox-group
-        header="Job Types"
-        :unique-values="uniqueJobTypes"
-        :mutation="ADD_SELECTED_JOB_TYPES"
-        data-test="job-types-filter"
-      />
+      <accordion header="Job Types">
+        <job-filters-sidebar-checkbox-group
+          :unique-values="uniqueJobTypes"
+          :mutation="ADD_SELECTED_JOB_TYPES"
+          data-test="job-types-filter"
+        />
+      </accordion>
 
-      <job-filters-sidebar-checkbox-group
-        header="Organizations"
-        :unique-values="uniqueOrganizations"
-        :mutation="ADD_SELECTED_ORGANIZATIONS"
-        data-test="job-organizations-filter"
-      />
+      <accordion header="Organizations">
+        <job-filters-sidebar-checkbox-group
+          :unique-values="uniqueOrganizations"
+          :mutation="ADD_SELECTED_ORGANIZATIONS"
+          data-test="job-organizations-filter"
+        />
+      </accordion>
     </section>
   </div>
 </template>
@@ -57,12 +60,14 @@ import {
 import { defineComponent } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import { key } from "@/store";
+import Accordion from "@/components/Shared/Accordion.vue";
 
 export default defineComponent({
   name: "JobFiltersSidebar",
   components: {
     ActionButton,
     JobFiltersSidebarCheckboxGroup,
+    Accordion,
   },
 
   setup() {
@@ -70,6 +75,7 @@ export default defineComponent({
     const uniqueJobTypes = useUniqueJobTypes();
     const uniqueOrganizations = useUniqueOrganizations();
     const uniqueDegrees = useUniqueDegrees();
+
     const clearUserJobFilterSelections = () => {
       store.commit(CLEAR_USER_JOB_FILTER_SELECTIONS);
     };
