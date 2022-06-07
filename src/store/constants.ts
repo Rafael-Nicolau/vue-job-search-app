@@ -11,6 +11,7 @@ export const CLEAR_USER_JOB_FILTER_SELECTIONS =
 
 //Skills and qualifications
 export const UPDATE_SKILLS_SEARCH_TERM = "UPDATE_SKILLS_SEARCH_TERM";
+export const INCLUDE_JOB_BY_SKILL = "INCLUDE_JOB_BY_SKILL";
 
 //Organizations
 export const UNIQUE_ORGANIZATIONS = "UNIQUE_ORGANIZATIONS";
