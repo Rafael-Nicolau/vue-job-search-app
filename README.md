@@ -1,6 +1,14 @@
-# job-search
+# vue-job-search
 
-Simple VUE APP, TDD method with Jest.
+VUE project imitating the "google careers" website.
 
-Using also:
-Tailwind
+It uses:
+
+- Vue
+- Vuex
+- Vue Router
+- Fully made on typescript
+- Axios
+- Jest for testing
+- Tailwind CSS for styling
+- FontAwesome
